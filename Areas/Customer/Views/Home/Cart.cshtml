@@ -1,0 +1,86 @@
+﻿@using eCommerce.Models
+@model List<Products>
+@*@{
+    int qnt = 0;
+}*@
+@{
+    ViewData["Title"] = "Cart";
+}
+@*<script type="text/javascript">
+    function minus() {
+        if (@qnt > 1) {
+            @qnt = @qnt - 1;
+
+        }
+    }
+    function add() {
+        @qnt = @qnt + 1;
+    }
+</script>*@
+
+<h2>My Shopping Cart</h2>
+<br /><br />
+      <form asp-action="Cart" method="post" enctype="multipart/form-data">
+          <div class="row">
+              <table class="table table-bordered">
+                  <thead>
+                      <tr>
+                          <th>Image</th>
+                          <th>Name</th>
+                          <th>Price</th>
+                          <th>Product Description</th>
+                          <th>Supplier</th>
+
+                          @*<th>Quantity</th>
+                    <th>Sub Total</th>*@
+                          <th> </th>
+
+                      </tr>
+
+                  </thead>
+                  <tbody>
+                      @foreach (var item in Model)
+                      {
+                          <tr>
+                              <td>
+                                  <img src="@item.Image" height="50px" width="50px" />
+                              </td>
+                              <td>
+                                  @item.Name
+                              </td>
+                              <td>
+                                  @item.Price
+                              </td>
+                              <td>
+                                  @item.Description
+                              </td>
+                              <td>
+                                  @item.Supplier
+                              </td>
+                              <td style="none">
+                                  <a asp-area="Customer" asp-action="Remove" asp-controller="Home" asp-route-id="@item.Id" class="btn btn-danger"> Remove Item</a>
+                              </td>
+                          </tr>
+                      }
+
+                  </tbody>
+              </table>
+              <h3 Sstyle="bold">Total: @Model.Sum(c => c.Price) ₹</h3>
+              @{
+                  if (Model.Sum(c => c.Price) == 0)
+                  {
+                      <H1 style="color:red">Cart Empty</H1>
+                      <h2 style="color:blue">Add Some Items to The Cart</h2>}
+              }
+              <br />
+              <br />
+              <a asp-action="Index" class="btn btn-danger">Back to List</a>
+              @{ if (Model.Sum(c => c.Price) != 0)
+                  {
+                      
+                      <input type="Submit" class="btn btn-success" value="Proceed to CheckOut" />}
+              }
+
+
+          </div>
+      </form>

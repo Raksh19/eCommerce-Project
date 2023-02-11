@@ -1,0 +1,38 @@
+﻿@using eCommerce.Models;
+@model List<Products>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<br/><br/>
+<div class="row">
+    <form method="Post">
+        <div class="row">
+            <div class="col-3">
+                <input type="text" class="form-control" name="PName" placeholder="Enter Prouct Name to Search" />
+            </div>
+            <div class="col-3">
+                <input type="Submit" value="Search" class="btn btn-primary" />
+            </div>
+            <div class="col-3"></div>
+        </div>
+    </form>
+        <br/>
+ </div>
+        @foreach (var product in Model)
+        {
+            <div class="col-4" style="display:inline-block">
+                <div class="card mb-4" style="display:inline-block;padding:20px">
+                    <div class=" card-header">
+                        <h4 class=" my-0 font-weight-normal">
+                            <lable style="font-size:23px;color:steelblue">@product.Name </lable>
+                        </h4>
+                    </div>
+                    <img src="@product.Image" class="card-img-top" style="height:250px;width:250px" /><br />
+                    <div style="background-color:azure; width:250px; height:35px">
+                        <Label style="font-size:15px;color:aqua">Price=@product.Price</Label>
+                        <a asp-action="Details" asp-controller="Home" asp-route-id="@product.Id" class="btn btn-success pull-right">Details</a>
+                    </div>
+                </div>
+            </div>
+        }

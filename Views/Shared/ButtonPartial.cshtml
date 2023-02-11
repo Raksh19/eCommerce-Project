@@ -1,0 +1,11 @@
+﻿@model int
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<td stle="width:150px">
+    <div class="btn-group">
+        <a asp-action="Edit" asp-controller="Product" class="btn nth-primary" asp-route-id="@Model">Edit</a>
+        <a asp-action="Details" asp-controller="Product" class="btn nth-primary" asp-route-id="@Model">Details</a>
+        <a asp-action="Delete" asp-controller="Product" class="btn nth-primary" asp-route-id="@Model">Delete</a>
+    </div>
+</td>

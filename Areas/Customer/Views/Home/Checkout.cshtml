@@ -1,0 +1,52 @@
+﻿@using eCommerce.Models
+@model List<Products>
+@{
+    ViewData["Title"] = "Checkout";
+}
+<h2>Products Bought</h2>
+<br /><br />
+<div class="row">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Product Description</th>
+                <th>Supplier</th>
+
+                @*<th>Quantity</th>
+                    <th>Sub Total</th>*@
+                <th> </th>
+
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@item.Image" height="50px" width="50px" />
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Price
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.Supplier
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <h3 Sstyle="bold">Total: @Model.Sum(c => c.Price) ₹</h3>
+    <h1 style="color:green">Thank You For shopping Visit again</h1>
+
+</div>

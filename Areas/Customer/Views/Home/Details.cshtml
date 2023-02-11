@@ -1,0 +1,90 @@
+﻿@model eCommerce.Models.Products
+@{
+    ViewData["Title"] = "Details";
+}
+@using System.Net.Http
+@using eCommerce.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+
+    List<Products> products = HttpContextAccessor.HttpContext.Session.Get<List<Products>>("products");
+    Products product = null;
+    if (products != null)
+    {
+        product = products.FirstOrDefault(c => c.Id == Model.Id);
+    }
+
+}
+<br />
+
+<h2 class="text-info">Product Details</h2>
+<form asp-action="Details" method="post" enctype="multipart/form-data">
+    <div class="col-lg-pull-4 rounded border">
+        <div asp-validation-summary="ModelOnly " class="text-danger">
+
+        </div>
+        <div class="form-group row" style="display:inline-block;padding:10px">
+            <div class="col-3">
+                <img src="@Model.Image" width="200px" height="250px" />
+            </div>
+            <div class="col-2" style="display:inline-block">
+                <label asp-for="Name"></label>
+            </div>
+            <div class="col5">
+                <input type="hidden" asp-for="Id" />
+                <input asp-for="Name" readonly="readonly" class="form-control" />
+            </div>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group row" style="display:inline-block;padding:10px">
+            <div class="col-2">
+                <label asp-for="Description"></label>
+            </div>
+            <div class="col5">
+                <input asp-for="Description" readonly="readonly" class="form-control" />
+            </div>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group row" style="display:inline-block;padding:10px">
+            <div class="col-2">
+                <label asp-for="Price"></label>
+            </div>
+            <div class="col5">
+                <input asp-for="Price" readonly="readonly" class="form-control" />
+            </div>
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="form-group row" style="display:inline-block;padding:10px">
+            <div class="col-2">
+                <label asp-for="Supplier"></label>
+            </div>
+            <div class="col5">
+                <input asp-for="Supplier" readonly="readonly" class="form-control" />
+            </div>
+            <span asp-validation-for="Supplier" class="text-danger"></span>
+        </div>
+        <div>
+            @if (product != null)
+            {
+                <button type="submit" class="btn btn-danger" asp-action="Remove" asp-route-id="@Model.Id">Remove From Cart</button>
+            }
+            else
+            {
+                <input type="submit" class="btn btn-info form-control" value="Add To Cart" />
+            }
+
+        </div>
+        <div class="form-group">
+
+            <a asp-action="Index" class="btn btn-default">Back to List</a>
+
+        </div>
+    </div>
+</form>
+
+@section Scripts
+    {
+    @{await Html.RenderPartialAsync(partialViewName: "_ValidationScriptsPartial");}
+}
+
